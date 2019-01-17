@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/nodobroker', function (Request $request) {
-    // return $request->nodobroker();
-})->middleware('auth:api');
+Route::apiResource('offer-types', 'OfferTypeController');
+Route::apiResource('projects', 'ProjectController');
+Route::apiResource('project-types', 'ProjectTypeController');
