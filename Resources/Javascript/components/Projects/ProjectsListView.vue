@@ -50,9 +50,7 @@
             <strong class="property-price text-primary mb-3 d-block text-success">
               {{ item.base_price }}
             </strong>
-            <div class="mb-4">
-              {{ item.description }}
-            </div>
+            <div class="mb-4" v-html="item.description" />
             <ul class="property-specs-wrap mb-3 mb-lg-0">
               <li>
                 <span class="property-specs">
