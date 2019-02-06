@@ -8,6 +8,8 @@
 import Vue from "vue"
 import VueCarousel from "vue-carousel"
 
+import "fifi.js/dist/js/fifi.min.js"
+
 require("./router")
 require("./store")
 
