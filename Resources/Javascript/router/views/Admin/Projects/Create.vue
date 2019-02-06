@@ -10,16 +10,29 @@
   </div>
 </template>
 
+<script>
 export default {
-    created() {
-        return this.$store.dispatch("projects/reset")
+    data() {
+        return {
+            alreadyCreated: false,
+        }
     },
 
     watch: {
         "$router" (value) {
-            if (value.name === "ProjectsCreate") {
-                this.$store.dispatch("projects/reset")
+            if (value.name === "AdminProjectsCreate" && this.alreadyCreated === true) {
+                return this.prepare()
             }
+        }
+    },
+    created() {
+        return this.prepare().then(() => this.alreadyCreated = true)
+    },
+
+    methods: {
+        prepare() {
+            return this.$store.dispatch("projects/reset")
         }
     }
 }
+</script>

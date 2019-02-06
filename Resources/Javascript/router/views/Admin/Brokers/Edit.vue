@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>
-      Editar Broker: {{ shortenTitle(oneBroker.name) }}
+      Editar Broker: {{ strLimit(oneBroker.name) }}
     </h4>
     <BrokerForm 
       :method="'put'" 
@@ -11,11 +11,15 @@
 </template>
 
 <script>
-import { projectsMethods, brokersMethods, brokersComputed } from "../../../../store/helpers"
+import { brokersComputed } from "../../../../store/helpers"
 import { strLimit } from "@/utilities/helpers"
-import store from "@/store"
 
 export default {
+    data() {
+        return {
+            alreadyCreated: false,
+        }
+    },
 
     computed: {
         ...brokersComputed
@@ -23,27 +27,23 @@ export default {
 
     watch: {
         "$route" (value) {
-            if (value.name === "BrokersEdit") {
-                return this.prepareComponent()
+            if (value.name === "AdminBrokersEdit" && this.alreadyCreated === true) {
+                return this.prepare()
             }
         }
     },
+
     created() {
-        return this.prepareComponent()
+        return this.prepare().then(() => this.alreadyCreated = true)
     },
 
     methods: {
-        ...projectsMethods,
-        ...brokersMethods,
-
-        prepareComponent() {
-            return store.dispatch("brokers/fetchOneBroker", this.$route.params.id),
-            store.dispatch("projects/fetchAllProjects")
+        prepare() {
+            return this.$store.dispatch("brokers/fetchOneBroker", this.$route.params.id),
+            this.$store.dispatch("projects/fetchAllProjects")
         },
 
-        shortenTitle(value) {
-            return strLimit(value)
-        }
+        strLimit,
     }
 }
 </script>

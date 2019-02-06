@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="mb-3">
-      Editar Inversión: {{ shortenTitle(oneProject.name) }}
+      Editar Inversión: {{ strLimit(oneProject.name) }}
     </h4>
     <ProjectForm
       :action="'/api/projects/' + $route.params.id"
@@ -17,7 +17,7 @@ import { strLimit } from "@/utilities/helpers"
 export default {
     data() {
         return {
-            prepared: false,
+            alreadyCreated: false,
         }
     },
 
@@ -27,24 +27,22 @@ export default {
 
     watch: {
         "$route" (value) {
-            if (value.name === "AdminProjectsEdit") {
+            if (value.name === "AdminProjectsEdit" && this.alreadyCreated === true) {
                 return this.prepare()
             }
         }
     },
 
     created() {
-        return this.prepare()
+        return this.prepare().then(() => this.alreadyCreated = true)
     },
 
     methods: {
-        shortenTitle(value) {
-            return strLimit(value)
+        prepare() {
+            return this.$store.dispatch("projects/fetchOneProject", this.$route.params.id)
         },
 
-        prepare() {
-            return this.$store.dispatch("projects/fetchOneProject", this.$route.params.id).then(() => this.prepared = true)
-        }
+        strLimit,
     },
 }
 </script>
