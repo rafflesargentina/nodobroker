@@ -61,7 +61,7 @@
     </carousel>
 
     <div
-      v-if="projectsFeatured.length > 0"
+      v-if="projectsFeatured.length > 0 && !isAuthenticated"
       class="site-section site-section-sm bg-light"
     >
       <div class="container">
@@ -295,14 +295,15 @@
 <script>
 import { sortBy } from "lodash"
 import { offerTypesComputed, offerTypesMethods, projectsComputed, projectTypesComputed, projectsMethods, projectTypesMethods } from "../../store/helpers"
+import { authComputed } from "@/store/helpers"
 
 export default {
     data() {
         return {
+            alreadyCreated: false,
             city: 0,
             items: [],
             offer_type_id: 0,
-            prepared: false,
             project_type_id: 0,
             view: "all",
         }
@@ -312,18 +313,19 @@ export default {
         ...offerTypesComputed,
         ...projectsComputed,
         ...projectTypesComputed,
+        ...authComputed,
     },
 
     watch: {
         "$route" (value) {
-            if (value.name === "Home" && this.prepared === false) {
+            if (value.name === "Home" && this.alreadyCreated === true) {
                 return this.prepare()
             }
         }
     },
 
     created() {
-        return this.prepare()
+        return this.prepare().then(() => this.alreadyCreated = true)
     },
 
     methods: {
