@@ -40,15 +40,15 @@ export default {
     },
 
     mapProjectsFeatured({ commit, state }, all) {
-        const featured = filter(all || state.all, (item)=> item.featured === "1")
+        const featured = filter(all || state.all, (item)=> item.featured === 1)
         commit(types.PROJECTS_FEATURED, featured)
         return featured
     },
 
     mapProjectsNonFeatured({ commit, state }, all) {
-        const nonFeatured = filter(all || state.all, (item)=> item.featured !== "1")
-        commit(types.PROJECTS_NON_FEATURED, nonFeatured)
-        return nonFeatured
+        const unfeatured = filter(all || state.all, (item)=> item.featured !== 1)
+        commit(types.PROJECTS_UNFEATURED, unfeatured)
+        return unfeatured
     },
 
     reset ({ commit }) {

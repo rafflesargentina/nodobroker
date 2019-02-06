@@ -18,8 +18,8 @@ export default {
         state.one = payload
     },
 
-    [types.PROJECTS_NON_FEATURED] (state, payload) {
-        state.nonFeatured = payload
+    [types.PROJECTS_UNFEATURED] (state, payload) {
+        state.unfeatured = payload
     },
 
     [types.PROJECTS_MAPPED_CITY_TAGS] (state, payload) {

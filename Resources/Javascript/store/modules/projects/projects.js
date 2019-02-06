@@ -7,7 +7,7 @@ export function initialState()
     return {
         all: [],
         featured: [],
-        nonFeatured: [],
+        unfeatured: [],
         mappedCityTags: [],
         one: {
             base_price: "",
