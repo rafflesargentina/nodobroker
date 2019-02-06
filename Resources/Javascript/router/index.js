@@ -1,4 +1,5 @@
 import * as middleware from "./middleware"
+import { authRequired, authNotRequired } from "@/router/middleware"
 import multiguard from "vue-router-multiguard"
 import router from "@/router"
 
@@ -12,43 +13,43 @@ router.addRoutes(
         {
             children: [
                 {
-                    beforeEnter: middleware.authRequired,
+                    beforeEnter: multiguard([authRequired, middleware.canAccessAdmin]),
                     name: "Admin",
                     path: "/admin",
                     component: require("./views/Admin/Projects/Index.vue")
                 },
                 {
-                    beforeEnter: middleware.authRequired,
+                    beforeEnter: multiguard([authRequired, middleware.canAccessAdmin]),
                     name: "AdminProjectsIndex",
                     path: "/admin/projects",
                     component: require("./views/Admin/Projects/Index.vue")
                 },
                 {
-                    beforeEnter: middleware.authRequired,
+                    beforeEnter: multiguard([authRequired, middleware.canAccessAdmin]),
                     name: "AdminProjectsCreate",
                     path: "/admin/projects/create",
                     component: require("./views/Admin/Projects/Create.vue")
                 },
                 {
-                    beforeEnter: middleware.authRequired,
+                    beforeEnter: multiguard([authRequired, middleware.canAccessAdmin]),
                     name: "AdminProjectsEdit",
                     path: "/admin/projects/:id/edit",
                     component: require("./views/Admin/Projects/Edit.vue")
                 },
                 {
-                    beforeEnter: middleware.authRequired,
+                    beforeEnter: multiguard([authRequired, middleware.canAccessAdmin]),
                     name: "AdminBrokersIndex",
                     path: "/admin/brokers",
                     component: require("./views/Admin/Brokers/Index.vue")
                 },
                 {
-                    beforeEnter: middleware.authRequired,
+                    beforeEnter: multiguard([authRequired, middleware.canAccessAdmin]),
                     name: "AdminBrokersCreate",
                     path: "/admin/brokers/create",
                     component: require("./views/Admin/Brokers/Create.vue")
                 },
                 {
-                    beforeEnter: middleware.authRequired,
+                    beforeEnter: multiguard([authRequired, middleware.canAccessAdmin]),
                     name: "AdminBrokersEdit",
                     path: "/admin/brokers/:id/edit",
                     component: require("./views/Admin/Brokers/Edit.vue")
@@ -78,7 +79,7 @@ router.addRoutes(
             component: require("./views/Home.vue")
         },
         {
-            beforeEnter: middleware.authNotRequired,
+            beforeEnter: authNotRequired,
             component: require("./views/auth/Login.vue"),
             meta: {
                 footer: false
@@ -92,13 +93,13 @@ router.addRoutes(
         //component: require("./views/Projects/Index.vue")
         //},
         {
-            beforeEnter: multiguard([middleware.authRequired, middleware.canSeeProject]),
+            beforeEnter: multiguard([authRequired, middleware.canSeeProject]),
             name: "ProjectsShow",
             path: "/projects/:id",
             component: require("./views/Projects/Show.vue")
         },
         {
-            beforeEnter: middleware.authNotRequired,
+            beforeEnter: authNotRequired,
             component: require("./views/auth/Register.vue"),
             meta: {
                 footer: false
@@ -108,3 +109,7 @@ router.addRoutes(
         },
     ]
 )
+
+router.scrollBehavior = (to, from, savedPosition)=> {
+    return { x: 0, y: 0 }
+}

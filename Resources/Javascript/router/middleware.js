@@ -1,28 +1,27 @@
 import store from "@/store"
 
-export const authRequired = (to, from, next) => {
-    if (store.getters["auth/isAuthenticated"]) {
-        return next()
+export const canAccessAdmin = (to, from, next) => {
+    var user = store.state.auth.user
+    if (user) {
+        if (store.getters["auth/isAdmin"] === true) {
+            return next()
+        }
     }
 
-    var intended = to.fullpath !== "/logout" ? to.fullPath : "/"
-    return next({name: "Login", query: { intended: encodeURI(intended) }})
-
-}
-
-export const authNotRequired = (to, from, next) => {
-    if (!store.getters["auth/isAuthenticated"]) {
-        return next()
-    }
-
-    return next({ name: "Home"})
+    return next({ name: "Unauthorized"})
 }
 
 export const canSeeProject = (to, from, next) => {
     var user = store.state.auth.user
-    if (store.getters["auth/isAuthenticated"] && (user.investments.map(item => item["id"]).includes(to.params.id)) || user.roles.map(item => item["slug"] === "admin")) {
-        return next()
+    if (user) {
+        if (user.projects.map(item => item["id"]).includes(to.params.id)) {
+            return next()
+        }
+
+        if (store.getters["auth/isAdmin"] === true) {
+            return next()
+        }
     }
 
-    return next({ name: "Home"})
+    return next({ name: "Unauthorized"})
 }
