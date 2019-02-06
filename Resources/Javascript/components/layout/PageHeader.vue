@@ -87,7 +87,7 @@
                     Login
                   </RouterLink>
                   <RouterLink
-                    v-if="isAuthenticated"
+                    v-if="isAuthenticated && isAdmin"
                     :to="{ name: 'Admin' }"
                   >
                     Admin

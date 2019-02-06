@@ -84,7 +84,7 @@
           </h3>
 
           <p class="text-white">
-            NODO BROKER es la primera plataforma de la región con foco en el armado de los canales de comercialización para ayudar a los developers a vender proyectos de perfil turísticos inmobiliarios y desarrollar sus inversiones, con el apoyo de la tecnología y el marketing en real estate.
+            NODO BROKER es la primera plataforma de la región con foco en el armado de los canales de comercialización directa para asistir a los desarrollistas o promotores inmobiliarios a vender sus proyectos en distintas etapas.  ampliando su canal de ventas entre todos los brokers previamente acreditados. Esta plataforma esta abierta a todo desarrollo que desee divulgar sus negocios o inversiones, con el apoyo de la tecnología y el marketing en real estate.
           </p>
 
           <div>
