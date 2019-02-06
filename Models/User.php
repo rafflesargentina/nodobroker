@@ -4,14 +4,14 @@ namespace Raffles\Modules\Nodobroker\Models;
 
 use Raffles\Models\User as BaseUser;
 
-class User extends BaseUser {
-
+class User extends BaseUser
+{
     /**
      * The relations to eager load on every query.
      *
      * @var array
      */
-    protected $with = 'projects';
+    protected $with = ['avatar', 'permissions', 'projects', 'roles'];
 
     /**
      * The projects that belong to the user.
