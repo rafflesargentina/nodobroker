@@ -13,9 +13,9 @@
           >
             <span class="icon-heart-o" />
           </a>
-          <a
+          <RouterLink
             :class="{'order-1': index % 2 === 0 }"
-            href="#"
+            :to="{ name: 'ProjectsShow', params: { id: item.id }}""
             class="property-thumbnail h-100"
           >
             <div
@@ -36,13 +36,13 @@
               alt="Image"
               class="img-fluid"
             >
-          </a>
+          </RouterLink>
 
           <div class="p-4 property-body w-100">
             <h2 class="property-title">
-              <router-link :to="{ name: 'ProjectsShow', params: { id: item.id }}">
+              <RouterLink :to="{ name: 'ProjectsShow', params: { id: item.id }}">
                 {{ item.name }}
-              </router-link>
+              </RouterLink>
             </h2>
             <span class="property-location d-block mb-3">
               <span class="property-icon icon-room" /> {{ item.location }}

@@ -9,8 +9,8 @@
       class="col-md-6 col-lg-4 mb-4"
     >
       <div class="property-entry h-100">
-        <a
-          href="#"
+        <RouterLink
+          :to="{ name: 'ProjectsShow', params: { id: item.id }}"
           class="property-thumbnail"
         >
           <div
@@ -32,7 +32,7 @@
             alt="Image"
             class="img-fluid"
           >
-        </a>
+        </RouterLink>
         <div class="p-4 property-body">
           <a
             href="#"
