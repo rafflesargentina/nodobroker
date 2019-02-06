@@ -1,70 +1,103 @@
 <template>
   <div>
-    <div class="site-mobile-menu">
+    <div
+      class="site-mobile-menu"
+      style="display:none;right:330px;"
+    >
       <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close mt-3">
+        <div
+          class="site-mobile-menu-close mt-3"
+          @click="hideMobileMenu"
+        >
           <span class="icon-close2 js-menu-toggle" />
         </div>
       </div>
       <div class="site-mobile-menu-body" />
-    </div> <!-- .site-mobile-menu -->
+    </div>
 
     <div class="site-navbar mt-4">
-      <div class="container py-1">
+      <div class="container-fluid py-1">
         <div class="row align-items-center">
-          <div class="col-8 col-md-8 col-lg-4">
-            <h1 class="mb-0">
-              <router-link
+          <div class="col-8 col-lg-3">
+            <h3 class="pl-5 mb-0 text-nowrap">
+              <RouterLink
                 :to="{ name: 'Home' }"
-                class="text-white h2 mb-0"
+                class="text-white mb-0"
               >
                 <strong>
                   NODO<span class="text-danger">
                     BROKER
                   </span>
                 </strong>
-              </router-link>
-            </h1>
+              </RouterLink>
+            </h3>
           </div>
-          <div class="col-4 col-md-4 col-lg-8">
+
+          <div class="col-2 col-lg-6 text-center text-nowrap">
             <nav
-              class="site-navigation text-right text-md-right"
+              class="site-navigation pr-5"
               role="navigation"
             >
-              <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3">
-                <a
-                  href="#"
-                  class="site-menu-toggle js-menu-toggle text-white"
-                >
-                  <span class="icon-menu h3" />
-                </a>
-              </div>
-
-              <ul class="site-menu js-clone-nav d-none d-lg-block">
+              <ul class="site-menu js-clone-nav d-none d-lg-inline-block">
                 <li class="active">
-                  <router-link :to="{ name: 'Home' }">
+                  <RouterLink :to="{ name: 'Home' }">
                     Home
-                  </router-link>
+                  </RouterLink>
                 </li>
                 <li>
-                  <router-link :to="{ name: 'About' }">
+                  <RouterLink :to="{ name: 'About' }">
                     Nosotros
-                  </router-link>
+                  </RouterLink>
                 </li>
                 <li>
-                  <router-link :to="{ name: 'Developers' }">
+                  <RouterLink :to="{ name: 'Developers' }">
                     Developers
-                  </router-link>
+                  </RouterLink>
                 </li>
                 <li>
-                  <router-link :to="{ name: 'Brokers' }">
+                  <RouterLink :to="{ name: 'Brokers' }">
                     Brokers
-                  </router-link>
+                  </RouterLink>
                 </li>
                 <li>
-                  <router-link :to="{ name: 'Contact' }">
+                  <RouterLink :to="{ name: 'Contact' }">
                     Contacto
-                  </router-link>
+                  </RouterLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-2 col-lg-3  py-3 text-center">
+            <nav
+              class="site-navigation"
+              role="navigation"
+            >
+              <a
+                class="d-inline-block d-lg-none js-menu-toggle site-menu-toggle text-white"
+                @click="showMobileMenu"
+              >
+                <span class="icon-menu h3" />
+              </a>
+              <ul class="site-menu js-clone-nav d-none d-lg-inline-block">
+                <li>
+                  <RouterLink
+                    v-if="!isAuthenticated"
+                    :to="{ name: 'Login' }"
+                  >
+                    Login
+                  </RouterLink>
+                  <RouterLink
+                    v-if="isAuthenticated"
+                    :to="{ name: 'Admin' }"
+                  >
+                    Admin
+                  </RouterLink>
+                  <RouterLink
+                    v-if="isAuthenticated"
+                    :to="{ name: 'Logout' }"
+                  >
+                    Cerrar sesión
+                  </RouterLink>
                 </li>
               </ul>
             </nav>
@@ -76,13 +109,15 @@
 </template>
 
 <script>
+import { authComputed } from "@/store/helpers"
 import { projectsComputed } from "../../store/helpers"
 
 export default {
     name: "PageHeader",
 
     computed: {
-        ...projectsComputed
+        ...projectsComputed,
+        ...authComputed,
     },
 
     mounted() {
@@ -90,6 +125,14 @@ export default {
     },
 
     methods: {
+        hideMobileMenu() {
+            return window.$(".site-mobile-menu").hide()
+        },
+
+        showMobileMenu() {
+            return window.$(".site-mobile-menu").show()
+        },
+
         siteMenuClone() {
             window.$(".js-clone-nav").each(function() {
                 var $this = window.$(this)

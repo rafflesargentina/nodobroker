@@ -36,11 +36,6 @@
                   </router-link>
                 </li>
                 <li>
-                  <router-link :to="{ name: 'ProjectsIndex' }">
-                    Proyectos
-                  </router-link>
-                </li>
-                <li>
                   <router-link :to="{ name: 'About' }">
                     Nosotros
                   </router-link>
@@ -55,14 +50,18 @@
             <div class="col-md-6 col-lg-6">
               <ul class="list-unstyled">
                 <li>
-                  <a href="#">
+                  <RouterLink
+                    v-if="!isAuthenticated"
+                    :to="{ name: 'Login' }"
+                  >
                     Login
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    Registro
-                  </a>
+                  </RouterLink>
+                  <RouterLink
+                    v-if="isAuthenticated"
+                    :to="{ name: 'Admin' }"
+                  >
+                    Admin
+                  </RouterLink>
                 </li>
                 <li>
                   <a href="#">
@@ -126,7 +125,13 @@
 </template>
 
 <script>
+import { authComputed } from "@/store/helpers"
+
 export default {
-    name: "PageFooter"
+    name: "PageFooter",
+
+    computed: {
+        ...authComputed
+    }
 }
 </script>
