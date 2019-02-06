@@ -1,5 +1,8 @@
 <template>
-  <div class="row mb-5">
+  <div
+    v-if="items.length > 0"
+    class="row mb-5"
+  >
     <div
       v-for="item in items"
       :key="item.id"
@@ -24,6 +27,7 @@
             </span>
           </div>
           <img
+            v-if="item.featured_photo"
             :src="item.featured_photo.url"
             alt="Image"
             class="img-fluid"
