@@ -1,9 +1,3 @@
-<style lang="scss">
-.vue-dropzone {
-  height: 100%;
-}
-</style>
-
 <template>
   <div>
     <form 
@@ -145,25 +139,108 @@
                     <strong v-text="form.errors.get('slug')" />
                   </span>
                 </div>
+
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label for="password">
+                      Contraseña
+                    </label>
+                    <input
+                      v-model="form.password"
+                      :class="{ 'is-invalid': form.errors.has('password') }"
+                      class="form-control"
+                      name="password"
+                      placeholder="Contraseña"
+                      type="password"
+                    >
+                    <span
+                      v-if="form.errors.has('password')"
+                      class="invalid-feedback"
+                      role="alert"
+                    >
+                      <strong v-text="form.errors.get('password')" />
+                    </span>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label for="password_confirmation">
+                      Confirmación de contraseña
+                    </label>
+                    <input
+                      v-model="form.password_confirmation"
+                      :class="{ 'is-invalid': form.errors.has('password_confirmation') }"
+                      class="form-control"
+                      name="password_confirmation"
+                      placeholder="Confirmación de contraseña"
+                      type="password"
+                    >
+                    <span
+                      v-if="form.errors.has('password_confirmation')"
+                      class="invalid-feedback"
+                      role="alert"
+                    >
+                      <strong v-text="form.errors.get('password_confirmation')" />
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
   
           <div
             id="assigned-projects"
-            class="card-header tab-pane fade"
+            class="card-body tab-pane fade"
             role="tabpanel"
             aria-labelledby="assigned-projects-tab"
           >
             <h5>Proyectos asignados</h5>
-            <vue-tags-input
-              v-model="projectTag"
-              :add-only-from-autocomplete="true"
-              :autocomplete-items="mapTags(allProjects)"
-              :class="{ 'is-invalid': form.errors.has('roles') }"
-              :tags="projectTags"
-              @tags-changed="newTags => projectTags = newTags"
+            <quick-search
+              ref="quickSearch"
+              :items="allProjects"
             />
+
+            <div v-if="$refs.quickSearch">
+              <dynamic-table
+                v-if="$refs.quickSearch.filteredItems.length > 0"
+                :columns="columns"
+                :items="$refs.quickSearch.filteredItems"
+                :per-page="12"
+                :sort-direction="'desc'"
+                :sort-key="'updated_at'"
+              >
+                <th
+                  slot="th"
+                  class="th--acciones"
+                >
+                  Asignación
+                </th>
+                <td
+                  slot="td"
+                  slot-scope="item"
+                >
+                  <input
+                    v-model="assignedProjects"
+                    type="checkbox"
+                    class="form-check-input"
+                    :checked="isProjectAssigned(item.id)"
+                    :value="item.id"
+                  >
+                  <label
+                    class="form-check-label"
+                    for="assignedProjects"
+                  >
+                    Asignado
+                  </label>
+                </td>
+              </dynamic-table>
+      
+              <div v-if="$refs.quickSearch.filteredItems.length === 0">
+                <div class="card-body">
+                  <p class="mb-0">
+                    No hay resultados para mostrar.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
       
           <div class="card-footer text-right">
@@ -188,19 +265,14 @@
 </template>
 
 <script>
+import { intersection } from "lodash"
 import { projectsComputed, brokersComputed } from "../../store/helpers"
-import { mapTags, previewDzThumbnailFromFile, slugify } from "@/utilities/helpers"
-import store from "@/store"
+import { previewDzThumbnailFromFile, slugify } from "@/utilities/helpers"
 import Form from "@/utilities/Form"
-import VueTagsInput from "@johmun/vue-tags-input"
 
 const token = JSON.parse(sessionStorage.getItem("auth.token") || localStorage.getItem("auth.token"))
 
 export default {
-    components: {
-        VueTagsInput
-    },
-
     props: {
         action: {
             type: String,
@@ -215,6 +287,11 @@ export default {
 
     data() {
         return {
+            assignedProjects: [],
+            columns: {
+                id: "Id.",
+                name: "Nombre",
+            },
             form: {},
             projectTag: "",
             projectTags: [],
@@ -234,20 +311,25 @@ export default {
     created() {
         this.submitted = false
         this.form = new Form(this.oneBroker)
-        this.projectTags = mapTags(this.oneBroker.projects)
+        this.assignedProjects = this.oneBroker.projects.map(item => item.id)
 
-        store.watch((state, getters) => state.brokers.one, (value)=> {
+        this.$store.watch((state, getters) => state.brokers.one, (value)=> {
             this.form = new Form(value)
-            this.projectTags = mapTags(this.oneBroker.projects)
+            this.assignedProjects = value.projects.map(item => item.id)
         })
     },
 
     methods: {
-        mapTags,
- 
+        isProjectAssigned(projectId) {
+            return this.allProjects[projectId] !== undefined
+        },
+
         submitForm() {
             this.submitted = true
-            this.form.projects = this.projectTags
+
+            var projects = []
+            this.assignedProjects.forEach(item => projects.push({ id: item }))
+            this.form.projects = projects
 
             this.form[this.method](this.action)
                 .then(response => {
@@ -259,6 +341,8 @@ export default {
                 }).catch(error => {
                     if (error.status > 422) {
                         this.$snotify.error("Ocurrió un error con el siguiente mensaje: " + error.data.message)
+
+                        return this.submitted = false
                     }
                 })
         },
