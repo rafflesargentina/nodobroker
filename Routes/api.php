@@ -11,6 +11,8 @@
 |
 */
 
+Route::apiResource('brokers', 'BrokerController');
 Route::apiResource('offer-types', 'OfferTypeController');
 Route::apiResource('projects', 'ProjectController');
 Route::apiResource('project-types', 'ProjectTypeController');
+Route::apiResource('users', 'UserrController');
