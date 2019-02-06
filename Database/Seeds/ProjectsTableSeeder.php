@@ -35,13 +35,13 @@ class ProjectsTableSeeder extends Seeder
                 ]
         );
     
-        $dosValles->featuredPhoto()->create(['location' => 'dos-valles/h-feature-1.jpg']);
-        $dosValles->unfeaturedPhotos()->create(['location' => 'dos-valles/h-feature-1.jpg']);
-        $dosValles->unfeaturedPhotos()->create(['location' => 'dos-valles/h-feature-2.jpg']);
-        $dosValles->unfeaturedPhotos()->create(['location' => 'dos-valles/h-feature-3.jpg']);
-        $dosValles->unfeaturedPhotos()->create(['location' => 'dos-valles/h-feature-4.jpg']);
-        $dosValles->unfeaturedPhotos()->create(['location' => 'dos-valles/h-feature-5.jpg']);
-        $dosValles->offerTypes()->attach('3');
+        $dosValles->featured_photo()->create(['location' => 'dos-valles/h-feature-1.jpg']);
+        $dosValles->unfeatured_photos()->create(['location' => 'dos-valles/h-feature-1.jpg']);
+        $dosValles->unfeatured_photos()->create(['location' => 'dos-valles/h-feature-2.jpg']);
+        $dosValles->unfeatured_photos()->create(['location' => 'dos-valles/h-feature-3.jpg']);
+        $dosValles->unfeatured_photos()->create(['location' => 'dos-valles/h-feature-4.jpg']);
+        $dosValles->unfeatured_photos()->create(['location' => 'dos-valles/h-feature-5.jpg']);
+        $dosValles->offer_types()->attach('3');
     
         $laAldea = Project::create(
             [
@@ -70,13 +70,13 @@ class ProjectsTableSeeder extends Seeder
                 ]
         );
         
-        $laAldea->featuredPhoto()->create(['location' => 'la-aldea/h-feature-1.jpg']);
-        $laAldea->unfeaturedPhotos()->create(['location' => 'la-aldea/h-feature-1.jpg']);
-        $laAldea->unfeaturedPhotos()->create(['location' => 'la-aldea/h-feature-2.jpg']);
-        $laAldea->unfeaturedPhotos()->create(['location' => 'la-aldea/h-feature-3.jpg']);
-        $laAldea->unfeaturedPhotos()->create(['location' => 'la-aldea/h-feature-4.jpg']);
-        $laAldea->unfeaturedPhotos()->create(['location' => 'la-aldea/h-feature-5.jpg']);
-        $laAldea->offerTypes()->attach(['1','2']);
+        $laAldea->featured_photo()->create(['location' => 'la-aldea/h-feature-1.jpg']);
+        $laAldea->unfeatured_photos()->create(['location' => 'la-aldea/h-feature-1.jpg']);
+        $laAldea->unfeatured_photos()->create(['location' => 'la-aldea/h-feature-2.jpg']);
+        $laAldea->unfeatured_photos()->create(['location' => 'la-aldea/h-feature-3.jpg']);
+        $laAldea->unfeatured_photos()->create(['location' => 'la-aldea/h-feature-4.jpg']);
+        $laAldea->unfeatured_photos()->create(['location' => 'la-aldea/h-feature-5.jpg']);
+        $laAldea->offer_types()->attach(['1','2']);
     
         $elDesafio = Project::create(
             [
@@ -120,13 +120,13 @@ class ProjectsTableSeeder extends Seeder
                 ]
         ); 
     
-        $elDesafio->featuredPhoto()->create(['location' => 'el-desafio/h-feature-1.jpg']);
-        $elDesafio->unfeaturedPhotos()->create(['location' => 'el-desafio/h-feature-1.jpg']);
-        $elDesafio->unfeaturedPhotos()->create(['location' => 'el-desafio/h-feature-2.jpg']);
-        $elDesafio->unfeaturedPhotos()->create(['location' => 'el-desafio/h-feature-3.jpg']);
-        $elDesafio->unfeaturedPhotos()->create(['location' => 'el-desafio/h-feature-4.jpg']);
-        $elDesafio->unfeaturedPhotos()->create(['location' => 'el-desafio/h-feature-5.jpg']);
-        $elDesafio->offerTypes()->attach(['1','2']);
+        $elDesafio->featured_photo()->create(['location' => 'el-desafio/h-feature-1.jpg']);
+        $elDesafio->unfeatured_photos()->create(['location' => 'el-desafio/h-feature-1.jpg']);
+        $elDesafio->unfeatured_photos()->create(['location' => 'el-desafio/h-feature-2.jpg']);
+        $elDesafio->unfeatured_photos()->create(['location' => 'el-desafio/h-feature-3.jpg']);
+        $elDesafio->unfeatured_photos()->create(['location' => 'el-desafio/h-feature-4.jpg']);
+        $elDesafio->unfeatured_photos()->create(['location' => 'el-desafio/h-feature-5.jpg']);
+        $elDesafio->offer_types()->attach(['1','2']);
 
         $vistaAlPolo = Project::create(
             [
@@ -142,9 +142,9 @@ class ProjectsTableSeeder extends Seeder
             ]
         );
 
-        $vistaAlPolo->featuredPhoto()->create(['location' => 'vista-al-polo/img_5.jpg']);
-        $vistaAlPolo->unfeaturedPhotos()->create(['location' => 'vista-al-polo/img_5.jpg']);
-        $vistaAlPolo->offerTypes()->attach('3');
+        $vistaAlPolo->featured_photo()->create(['location' => 'vista-al-polo/img_5.jpg']);
+        $vistaAlPolo->unfeatured_photos()->create(['location' => 'vista-al-polo/img_5.jpg']);
+        $vistaAlPolo->offer_types()->attach('3');
 
         $nidoCondominioJardin = Project::create(
             [
@@ -159,9 +159,9 @@ class ProjectsTableSeeder extends Seeder
             ]
         );
 
-        $nidoCondominioJardin->featuredPhoto()->create(['location' => 'nido-condominio-jardin/img_4.jpg']);
-        $nidoCondominioJardin->unfeaturedPhotos()->create(['location' => 'nido-condominio-jardin/img_4.jpg']);
-        $nidoCondominioJardin->offerTypes()->attach('3');
+        $nidoCondominioJardin->featured_photo()->create(['location' => 'nido-condominio-jardin/img_4.jpg']);
+        $nidoCondominioJardin->unfeatured_photos()->create(['location' => 'nido-condominio-jardin/img_4.jpg']);
+        $nidoCondominioJardin->offer_types()->attach('3');
 
         $championsGate = Project::create(
             [
@@ -177,9 +177,9 @@ class ProjectsTableSeeder extends Seeder
             ]
         );
 
-        $championsGate->featuredPhoto()->create(['location' => 'champions-gate/img_6.jpg']);
-        $championsGate->unfeaturedPhotos()->create(['location' => 'champions-gate/img_6.jpg']);
-        $championsGate->offerTypes()->attach('3');
+        $championsGate->featured_photo()->create(['location' => 'champions-gate/img_6.jpg']);
+        $championsGate->unfeatured_photos()->create(['location' => 'champions-gate/img_6.jpg']);
+        $championsGate->offer_types()->attach('3');
 
         $vista = Project::create(
             [
@@ -197,14 +197,14 @@ class ProjectsTableSeeder extends Seeder
             ]
         );
 
-        $vista->featuredPhoto()->create(['location' => 'vista/fachada_-vista_grande.jpg']);
-        $vista->unfeaturedPhotos()->create(['location' => 'vista/01-proyecto-vista.jpg']);
-        $vista->unfeaturedPhotos()->create(['location' => 'vista/02-proyecto-vista.jpg']);
-        $vista->unfeaturedPhotos()->create(['location' => 'vista/03-proyecto-vista.jpg']);
-        $vista->unfeaturedPhotos()->create(['location' => 'vista/04-proyecto-vista.jpg']);
-        $vista->unfeaturedPhotos()->create(['location' => 'vista/05-proyecto-vista.jpg']);
-        $vista->unfeaturedPhotos()->create(['location' => 'vista/06-proyecto-vista.jpg']);
-        $vista->offerTypes()->attach(['1','2','3']);
+        $vista->featured_photo()->create(['location' => 'vista/fachada_-vista_grande.jpg']);
+        $vista->unfeatured_photos()->create(['location' => 'vista/01-proyecto-vista.jpg']);
+        $vista->unfeatured_photos()->create(['location' => 'vista/02-proyecto-vista.jpg']);
+        $vista->unfeatured_photos()->create(['location' => 'vista/03-proyecto-vista.jpg']);
+        $vista->unfeatured_photos()->create(['location' => 'vista/04-proyecto-vista.jpg']);
+        $vista->unfeatured_photos()->create(['location' => 'vista/05-proyecto-vista.jpg']);
+        $vista->unfeatured_photos()->create(['location' => 'vista/06-proyecto-vista.jpg']);
+        $vista->offer_types()->attach(['1','2','3']);
 
         $cassaIsidro = Project::create(
             [
@@ -222,13 +222,13 @@ class ProjectsTableSeeder extends Seeder
             ]
         );
 
-        $cassaIsidro->featuredPhoto()->create(['location' => 'cassa-isidro/fachada_-la_casona_san_isidro_grande.jpg']);
-        $cassaIsidro->unfeaturedPhotos()->create(['location' => 'cassa-isidro/01_proyecto_la_casona_de_san_isidro.jpg']);
-        $cassaIsidro->unfeaturedPhotos()->create(['location' => 'cassa-isidro/02_proyecto_la_casona_de_san_isidro.jpg']);
-        $cassaIsidro->unfeaturedPhotos()->create(['location' => 'cassa-isidro/03_proyecto_la_casona_de_san_isidro.jpg']);
-        $cassaIsidro->unfeaturedPhotos()->create(['location' => 'cassa-isidro/04_proyecto_la_casona_de_san_isidro.jpg']);
-        $cassaIsidro->unfeaturedPhotos()->create(['location' => 'cassa-isidro/04_proyecto_la_casona_de_san_isidro.jpg']);
-        $cassaIsidro->unfeaturedPhotos()->create(['location' => 'cassa-isidro/06_proyecto_la_casona_de_san_isidro.jpg']);
-        $cassaIsidro->offerTypes()->attach(['1','2','3']);
+        $cassaIsidro->featured_photo()->create(['location' => 'cassa-isidro/fachada_-la_casona_san_isidro_grande.jpg']);
+        $cassaIsidro->unfeatured_photos()->create(['location' => 'cassa-isidro/01_proyecto_la_casona_de_san_isidro.jpg']);
+        $cassaIsidro->unfeatured_photos()->create(['location' => 'cassa-isidro/02_proyecto_la_casona_de_san_isidro.jpg']);
+        $cassaIsidro->unfeatured_photos()->create(['location' => 'cassa-isidro/03_proyecto_la_casona_de_san_isidro.jpg']);
+        $cassaIsidro->unfeatured_photos()->create(['location' => 'cassa-isidro/04_proyecto_la_casona_de_san_isidro.jpg']);
+        $cassaIsidro->unfeatured_photos()->create(['location' => 'cassa-isidro/04_proyecto_la_casona_de_san_isidro.jpg']);
+        $cassaIsidro->unfeatured_photos()->create(['location' => 'cassa-isidro/06_proyecto_la_casona_de_san_isidro.jpg']);
+        $cassaIsidro->offer_types()->attach(['1','2','3']);
     }
 }
