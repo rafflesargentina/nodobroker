@@ -30,7 +30,7 @@ class Broker extends User
      *
      * @var array
      */
-    protected $with = 'projects';
+    protected $with = ['avatar', 'projects', 'roles'];
 
     /**
      * The "booting" method of the model.
@@ -59,10 +59,30 @@ class Broker extends User
     }
 
     /**
+     * Brokers can have many roles.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(\Caffeinated\Shinobi\Models\Permission::class, 'permission_user', 'permission_id', 'user_id')->withTimestamps();
+    }
+
+    /**
      * The projects that belong to the user.
      */
     public function projects()
     {
         return $this->belongsToMany(Project::class, 'project_user', 'user_id');
+    }
+
+    /**
+     * Brokers can have many roles.
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(\Caffeinated\Shinobi\Models\Role::class, 'role_user', 'role_id', 'user_id')->withTimestamps();
     }
 }
