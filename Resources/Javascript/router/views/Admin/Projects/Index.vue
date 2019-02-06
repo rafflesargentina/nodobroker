@@ -75,6 +75,7 @@ import { projectsComputed, projectsMethods } from "../../../../store/helpers"
 export default {
     data() {
         return {
+            alreadyCreated: false,
             columns: {
                 id: "Id.",
                 name: "Nombre",
@@ -91,14 +92,15 @@ export default {
 
     watch: {
         "$route" (value) {
-            if (value.name === "AdminProjectsIndex") {
-                return this.prepare()
+            if (value.name === "AdminProjectsIndex" && this.alreadyCreated === true) {
+                return this.prepare(),
+                this.$refs.quickSearch.search = ""
             }
         }
     },
 
     created() {
-        return this.prepare()
+        return this.prepare().then(() => this.alreadyCreated = true)
     },
 
     methods: {

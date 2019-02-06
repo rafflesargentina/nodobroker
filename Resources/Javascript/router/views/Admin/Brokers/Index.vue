@@ -92,7 +92,8 @@ export default {
     watch: {
         "$route" (value) {
             if (value.name === "AdminBrokersIndex") {
-                return this.prepare()
+                return this.prepare(),
+                this.$refs.quickSearch.search = ""
             }
         }
     },
