@@ -1,5 +1,26 @@
 import { mapActions, mapState } from "vuex"
 
+export const brokersComputed = {
+    ...mapState(
+        "brokers", {
+            allBrokers: state => state.all,
+            oneBroker: state => state.one,
+            oneProjectMappedTags: state => state.oneProjectMappedTags,
+        }
+    ),
+}
+
+export const brokersMethods = {
+    ...mapActions(
+        "brokers", [
+            "deleteOneBroker",
+            "fetchAllBrokers",
+            "fetchOneBroker",
+            "mapOneProjectTags",
+        ]
+    )
+}
+
 export const offerTypesComputed = {
     ...mapState(
         "offerTypes", {
@@ -24,7 +45,7 @@ export const projectsComputed = {
         "projects", {
             allProjects: state => state.all,
             projectsFeatured: state => state.featured,
-            projectsNonFeatured: state => state.nonFeatured,
+            projectsNonFeatured: state => state.unfeatured,
             projectsMappedCityTags: state => state.mappedCityTags,
             oneProject: state => state.one
         }
