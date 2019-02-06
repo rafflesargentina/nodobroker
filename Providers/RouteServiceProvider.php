@@ -51,12 +51,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::group([
+        Route::group(
+            [
             'middleware' => 'web',
             'namespace'  => $this->namespace,
-        ], function ($router) {
-            require module_path('nodobroker', 'Routes/web.php', 'app');
-        });
+            ], function ($router) {
+                include module_path('nodobroker', 'Routes/web.php', 'app');
+            }
+        );
     }
 
     /**
@@ -68,12 +70,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::group([
+        Route::group(
+            [
             'middleware' => 'api',
             'namespace'  => $this->namespace,
             'prefix'     => 'api',
-        ], function ($router) {
-            require module_path('nodobroker', 'Routes/api.php', 'app');
-        });
+            ], function ($router) {
+                include module_path('nodobroker', 'Routes/api.php', 'app');
+            }
+        );
     }
 }
