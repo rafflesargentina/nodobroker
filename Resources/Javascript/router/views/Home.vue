@@ -202,9 +202,9 @@
                     Destacados
                   </a>
                   <a
-                    :class="{ active: view === 'nonFeatured' }"
+                    :class="{ active: view === 'unfeatured' }"
                     class="view-list px-3"
-                    @click="resetViewFilters(), updateViews('nonFeatured')"
+                    @click="resetViewFilters(), updateViews('unfeatured')"
                   >
                     No destacados
                   </a>
@@ -395,8 +395,8 @@ export default {
                 this.view = "featured"
                 this.items = this.projectsFeatured
                 break
-            case "nonFeatured":
-                this.view = "nonFeatured"
+            case "unfeatured":
+                this.view = "unfeatured"
                 this.items = this.projectsNonFeatured
                 break
             }
