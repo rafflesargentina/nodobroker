@@ -565,6 +565,7 @@ export default {
                 url: "/api/projects",
             },
             form: {},
+            isDestroying: false,
             marker: {},
             submitted: false,
             tab: "main",
@@ -592,12 +593,17 @@ export default {
         this.form = new Form(this.oneProject),
 
         this.$store.watch(state => state.projects.one, (value)=> {
+            this.isDestroying = false
             this.form = new Form(value)
 
             this.dzFeaturedPhotoCancel()
             this.dzUnfeaturedPhotosCancel()
 
         })
+    },
+
+    beforeDestroy() {
+        this.isDestroying = true
     },
 
     methods: {
@@ -621,10 +627,9 @@ export default {
         },
 
         dzFeaturedPhotoRemoveFile(file) {
-            console.log(file)
-            //if (file.id) {
-            //this.deleteOnePhoto(file.id)
-            //}
+            if (this.isDestroying === true && file.id) {
+                this.deleteOnePhoto(file.id)
+            }
 
             this.dzFeaturedPhotoAddOrRemoveFiles()
         },
@@ -694,10 +699,9 @@ export default {
         },
 
         dzUnfeaturedPhotosRemoveFile(file) {
-            console.log(file)
-            //if (file.id) {
-            //this.deleteOnePhoto(file.id)
-            //}
+            if (this.isDestroying === true && file.id) {
+                this.deleteOnePhoto(file.id)
+            }
 
             this.dzUnfeaturedPhotosAddOrRemoveFiles()
         },
