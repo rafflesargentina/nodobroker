@@ -23,11 +23,23 @@ class ProjectRequest extends ActionBasedFormRequest
      */
     public static function store()
     {
+        if (request()->has('featured_photo')) {
+            return [
+                'featured_photo[]' => 'image',
+            ];
+        }
+
+        if (request()->has('unfeatured_photos')) {
+            return [
+                'unfeatured_photos[]' => 'image',
+            ];
+        }
+
         return [
-            'description' => 'required',
-            'name' => 'required',
             'city' => 'required_without:state',
             'country' => 'required',
+            'description' => 'required',
+            'name' => 'required',
             'state' => 'required_without:city',
             'total_area' => 'required|numeric',
         ];
