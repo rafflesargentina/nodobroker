@@ -627,11 +627,9 @@ export default {
         },
 
         dzFeaturedPhotoRemoveFile(file) {
-            if (this.isDestroying === true && file.id) {
-                this.deleteOnePhoto(file.id)
+            if (this.isDestroying === false && file.id) {
+                this.dzFeaturedPhotoAddOrRemoveFiles()
             }
-
-            this.dzFeaturedPhotoAddOrRemoveFiles()
         },
 
         dzFeaturedPhotoFail() {
@@ -699,11 +697,10 @@ export default {
         },
 
         dzUnfeaturedPhotosRemoveFile(file) {
-            if (this.isDestroying === true && file.id) {
+            if (this.isDestroying === false && file.id) {
                 this.deleteOnePhoto(file.id)
+                this.dzUnfeaturedPhotosAddOrRemoveFiles()
             }
-
-            this.dzUnfeaturedPhotosAddOrRemoveFiles()
         },
 
         dzUnfeaturedPhotosSetUrl() {
